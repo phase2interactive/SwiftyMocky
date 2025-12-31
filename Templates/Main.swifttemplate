@@ -12,6 +12,7 @@ func generate(type: Type, idx: Int, methodRegistrar: MethodRegistrar, subscriptR
     let typeAliases: [String] = Helpers.extractTypealiases(from: aProtocol)
     let genericTypesModifier: String = Helpers.extractGenericTypesModifier(associatedTypes)
     let genericTypesConstraints: String = Helpers.extractGenericTypesConstraints(associatedTypes)
+    current.selfType = "\(type.name)\(mockTypeName)\(genericTypesModifier)"
     let allSubscripts = aProtocol.allSubscripts
     let allVariables = uniques(variables: aProtocol.allVariables.filter({ !$0.isStatic }))
     let allStaticVariables = uniques(variables: aProtocol.allVariables.filter({ $0.isStatic }))
@@ -113,11 +114,6 @@ func generate(type: Type, idx: Int, methodRegistrar: MethodRegistrar, subscriptR
     <%_ } %> <%_ -%>
 
   <%# ================================================== METHOD REGISTRATIONS -%><%_ -%>
-    <%_ if autoMockable { -%>
-    <%_ current.selfType = "\(type.name)\(mockTypeName)\(genericTypesModifier)" -%>
-    <%_ } else { %>
-    <%_ current.selfType = "\(type.name)\(mockTypeName)\(genericTypesModifier)" -%>
-    <%_ } %>
     <%_ let wrappedSubscripts = allSubscripts.map { wrapSubscript($0, current: current, subscriptRegistrar: subscriptRegistrar) } -%>
     <%_ let wrappedMethods = allMethods.map { wrapMethod($0, current: current, methodRegistrar: methodRegistrar) }.filter({ $0.wrappedInMethodType() }) -%>
     <%_ let wrappedVariables = allVariables.map { justWrap($0, current: current) } -%>
@@ -427,7 +423,7 @@ func generate(type: Type, idx: Int, methodRegistrar: MethodRegistrar, subscriptR
     private func matchingCalls(_ method: Verify, file: StaticString?, line: UInt?) -> Int {
         return matchingCalls(method.method, file: file, line: line).count
     }
-    private func givenGetterValue<T>(_ method: MethodType, _ message: String) -> T {
+    private func givenGetterValue<T_Mock_Getter>(_ method: MethodType, _ message: String) -> T_Mock_Getter {
         do {
             return try methodReturnValue(method).casted()
         } catch {
@@ -435,7 +431,7 @@ func generate(type: Type, idx: Int, methodRegistrar: MethodRegistrar, subscriptR
             Failure(message)
         }
     }
-    private func optionalGivenGetterValue<T>(_ method: MethodType, _ message: String) -> T? {
+    private func optionalGivenGetterValue<T_Mock_Getter>(_ method: MethodType, _ message: String) -> T_Mock_Getter? {
         do {
             return try methodReturnValue(method).casted()
         } catch {
@@ -497,14 +493,14 @@ func generate(type: Type, idx: Int, methodRegistrar: MethodRegistrar, subscriptR
     static private func matchingCalls(_ method: StaticVerify, file: StaticString?, line: UInt?) -> Int {
         return matchingCalls(method.method, file: file, line: line).count
     }
-    static private func givenGetterValue<T>(_ method: StaticMethodType, _ message: String) -> T {
+    static private func givenGetterValue<T_Mock_Getter>(_ method: StaticMethodType, _ message: String) -> T_Mock_Getter {
         do {
             return try methodReturnValue(method).casted()
         } catch {
             Failure(message)
         }
     }
-    static private func optionalGivenGetterValue<T>(_ method: StaticMethodType, _ message: String) -> T? {
+    static private func optionalGivenGetterValue<T_Mock_Getter>(_ method: StaticMethodType, _ message: String) -> T_Mock_Getter? {
         do {
             return try methodReturnValue(method).casted()
         } catch {

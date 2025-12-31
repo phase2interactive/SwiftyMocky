@@ -267,4 +267,4 @@ class ExampleTests: XCTestCase {
     }
 }
 
-extension String: EmptyProtocol { }
+extension String: @retroactive EmptyProtocol { }
