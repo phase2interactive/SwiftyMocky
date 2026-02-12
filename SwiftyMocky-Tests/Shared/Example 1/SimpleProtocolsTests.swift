@@ -336,4 +336,28 @@ class SimpleProtocolsTests: XCTestCase {
 
         verify(mock, .exactly(3)).simpleMethod()
     }
+
+    func test_properties_and_methods_builderAPI() {
+        let mock = SimpleProtocolWithBothMethodsAndPropertiesMock()
+
+        // New builder API version - stub both properties and methods
+        given(mock).property().willReturn("some property")
+        given(mock).simpleMethod().willReturn("some return value")
+
+        XCTAssertEqual(mock.property, "some property")
+        XCTAssertEqual(mock.simpleMethod(), "some return value")
+
+        verify(mock).simpleMethod()
+        verify(mock).property()
+
+        // Test sequencing with properties
+        given(mock).property().willReturn("A", "B", "C", "D")
+        XCTAssertEqual(mock.property, "A")
+        XCTAssertEqual(mock.property, "B")
+        XCTAssertEqual(mock.property, "C")
+        XCTAssertEqual(mock.property, "D")
+        XCTAssertEqual(mock.property, "A")  // Cycles back
+
+        verify(mock, .exactly(6)).property()
+    }
 }

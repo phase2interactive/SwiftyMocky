@@ -90,7 +90,7 @@ class ProtocolsWithPropertiesTests: XCTestCase {
         let mock = ProtocolWithPropertiesMock()
 
         // New builder API version
-        verify(mock, .never).name
+        verify(mock, .never).name()
         verify(mock, .never).name(set: .any)
 
         mock.name = "danny_13"
@@ -101,14 +101,14 @@ class ProtocolsWithPropertiesTests: XCTestCase {
             XCTAssertEqual(mock.name, "danny_13")
         }
 
-        verify(mock, .exactly(upper)).name
+        verify(mock, .exactly(upper)).name()
     }
 
     func test_properties_setters_builderAPI() {
         let mock = ProtocolWithPropertiesMock()
 
         // New builder API version
-        verify(mock, .never).name
+        verify(mock, .never).name()
         verify(mock, .never).name(set: .any)
 
         // Set properties randomly between 10 and 20 times
@@ -119,5 +119,50 @@ class ProtocolsWithPropertiesTests: XCTestCase {
 
         verify(mock, .once).name(set: .value("danny_1"))
         verify(mock, .exactly(upper)).name(set: .any)
+    }
+
+    func test_property_stubbing_builderAPI() {
+        let mock = ProtocolWithPropertiesMock()
+
+        // New builder API version - stub property getters
+        given(mock).name().willReturn("John")
+        XCTAssertEqual(mock.name, "John")
+
+        given(mock).name().willReturn("Jane")
+        XCTAssertEqual(mock.name, "Jane")
+
+        verify(mock, .exactly(2)).name()
+    }
+
+    func test_property_stubbing_with_sequencing_builderAPI() {
+        let mock = ProtocolWithPropertiesMock()
+
+        // New builder API version - multiple return values
+        given(mock).name().willReturn("First", "Second", "Third")
+
+        XCTAssertEqual(mock.name, "First")
+        XCTAssertEqual(mock.name, "Second")
+        XCTAssertEqual(mock.name, "Third")
+        XCTAssertEqual(mock.name, "First")  // Cycles back
+
+        verify(mock, .exactly(4)).name()
+    }
+
+    func test_property_stubbing_with_willProduce_builderAPI() {
+        let mock = ProtocolWithPropertiesMock()
+
+        // New builder API version - willProduce for properties
+        given(mock).name().willProduce { stub in
+            stub.return("Alpha")
+            stub.return("Beta")
+            stub.return("Gamma")
+        }
+
+        XCTAssertEqual(mock.name, "Alpha")
+        XCTAssertEqual(mock.name, "Beta")
+        XCTAssertEqual(mock.name, "Gamma")
+        XCTAssertEqual(mock.name, "Alpha")  // Cycles back
+
+        verify(mock, .exactly(4)).name()
     }
 }

@@ -1335,17 +1335,17 @@ open class AMassiveTestProtocolMock: AMassiveTestProtocol, Mock, StaticMock {
     public struct GivenBuilderFactory {
         fileprivate let mock: AMassiveTestProtocolMock
 
-        public func nonOptionalClosure(getter defaultValue: () -> Void...) -> GivenBuilder<AMassiveTestProtocolMock, () -> Void> {
+        public func nonOptionalClosure() -> GivenBuilder<AMassiveTestProtocolMock, () -> Void> {
             GivenBuilder(mock: mock, stubFactory: { m, products in
                 Given(method: .p_nonOptionalClosure_get, products: products)
             })
         }
-        public func optionalClosure(getter defaultValue: (() -> Int)?...) -> GivenBuilder<AMassiveTestProtocolMock, (() -> Int)?> {
+        public func optionalClosure() -> GivenBuilder<AMassiveTestProtocolMock, (() -> Int)?> {
             GivenBuilder(mock: mock, stubFactory: { m, products in
                 Given(method: .p_optionalClosure_get, products: products)
             })
         }
-        public func implicitelyUnwrappedClosure(getter defaultValue: (() -> Void)?...) -> GivenBuilder<AMassiveTestProtocolMock, (() -> Void)?> {
+        public func implicitelyUnwrappedClosure() -> GivenBuilder<AMassiveTestProtocolMock, (() -> Void)?> {
             GivenBuilder(mock: mock, stubFactory: { m, products in
                 Given(method: .p_implicitelyUnwrappedClosure_get, products: products)
             })
@@ -1403,12 +1403,12 @@ open class AMassiveTestProtocolMock: AMassiveTestProtocol, Mock, StaticMock {
         @discardableResult public func methodThatRethrows(param: Parameter<(String) throws -> Int>) -> VerifyBuilder<AMassiveTestProtocolMock, Int> {
             VerifyBuilder(mock: mock, method: Verify(method: .m_methodThatRethrows__param_param(`param`)), returning: (Int).self, count: count, file: file, line: line)
         }
-        public var nonOptionalClosure: VerifyBuilder<AMassiveTestProtocolMock, () -> Void> { VerifyBuilder(mock: mock, method: Verify(method: .p_nonOptionalClosure_get), returning: (() -> Void).self, count: count, file: file, line: line) }
-		public func nonOptionalClosure(set newValue: Parameter<() -> Void>) -> VerifyBuilder<AMassiveTestProtocolMock, Void> { VerifyBuilder(mock: mock, method: Verify(method: .p_nonOptionalClosure_set(newValue)), returning: Void.self, count: count, file: file, line: line) }
-        public var optionalClosure: VerifyBuilder<AMassiveTestProtocolMock, (() -> Int)?> { VerifyBuilder(mock: mock, method: Verify(method: .p_optionalClosure_get), returning: ((() -> Int)?).self, count: count, file: file, line: line) }
-		public func optionalClosure(set newValue: Parameter<(() -> Int)?>) -> VerifyBuilder<AMassiveTestProtocolMock, Void> { VerifyBuilder(mock: mock, method: Verify(method: .p_optionalClosure_set(newValue)), returning: Void.self, count: count, file: file, line: line) }
-        public var implicitelyUnwrappedClosure: VerifyBuilder<AMassiveTestProtocolMock, (() -> Void)?> { VerifyBuilder(mock: mock, method: Verify(method: .p_implicitelyUnwrappedClosure_get), returning: ((() -> Void)?).self, count: count, file: file, line: line) }
-		public func implicitelyUnwrappedClosure(set newValue: Parameter<(() -> Void)?>) -> VerifyBuilder<AMassiveTestProtocolMock, Void> { VerifyBuilder(mock: mock, method: Verify(method: .p_implicitelyUnwrappedClosure_set(newValue)), returning: Void.self, count: count, file: file, line: line) }
+        @discardableResult public func nonOptionalClosure() -> VerifyBuilder<AMassiveTestProtocolMock, () -> Void> { VerifyBuilder(mock: mock, method: Verify(method: .p_nonOptionalClosure_get), returning: (() -> Void).self, count: count, file: file, line: line) }
+		@discardableResult public func nonOptionalClosure(set newValue: Parameter<() -> Void>) -> VerifyBuilder<AMassiveTestProtocolMock, Void> { VerifyBuilder(mock: mock, method: Verify(method: .p_nonOptionalClosure_set(newValue)), returning: Void.self, count: count, file: file, line: line) }
+        @discardableResult public func optionalClosure() -> VerifyBuilder<AMassiveTestProtocolMock, (() -> Int)?> { VerifyBuilder(mock: mock, method: Verify(method: .p_optionalClosure_get), returning: ((() -> Int)?).self, count: count, file: file, line: line) }
+		@discardableResult public func optionalClosure(set newValue: Parameter<(() -> Int)?>) -> VerifyBuilder<AMassiveTestProtocolMock, Void> { VerifyBuilder(mock: mock, method: Verify(method: .p_optionalClosure_set(newValue)), returning: Void.self, count: count, file: file, line: line) }
+        @discardableResult public func implicitelyUnwrappedClosure() -> VerifyBuilder<AMassiveTestProtocolMock, (() -> Void)?> { VerifyBuilder(mock: mock, method: Verify(method: .p_implicitelyUnwrappedClosure_get), returning: ((() -> Void)?).self, count: count, file: file, line: line) }
+		@discardableResult public func implicitelyUnwrappedClosure(set newValue: Parameter<(() -> Void)?>) -> VerifyBuilder<AMassiveTestProtocolMock, Void> { VerifyBuilder(mock: mock, method: Verify(method: .p_implicitelyUnwrappedClosure_set(newValue)), returning: Void.self, count: count, file: file, line: line) }
     }
 
     public func given(_ method: Given) {
@@ -3121,7 +3121,7 @@ open class ComplicatedServiceTypeMock: ComplicatedServiceType, Mock {
     public struct GivenBuilderFactory {
         fileprivate let mock: ComplicatedServiceTypeMock
 
-        public func youCouldOnlyGetThis(getter defaultValue: String...) -> GivenBuilder<ComplicatedServiceTypeMock, String> {
+        public func youCouldOnlyGetThis() -> GivenBuilder<ComplicatedServiceTypeMock, String> {
             GivenBuilder(mock: mock, stubFactory: { m, products in
                 Given(method: .p_youCouldOnlyGetThis_get, products: products)
             })
@@ -3247,7 +3247,7 @@ open class ComplicatedServiceTypeMock: ComplicatedServiceType, Mock {
         @discardableResult public func methodWithClosures(success function: Parameter<((Scalar, Scalar) -> Scalar)?>) -> VerifyBuilder<ComplicatedServiceTypeMock, (Int) -> Void> {
             VerifyBuilder(mock: mock, method: Verify(method: .m_methodWithClosures__success_function_2(`function`)), returning: ((Int) -> Void).self, count: count, file: file, line: line)
         }
-        public var youCouldOnlyGetThis: VerifyBuilder<ComplicatedServiceTypeMock, String> { VerifyBuilder(mock: mock, method: Verify(method: .p_youCouldOnlyGetThis_get), returning: (String).self, count: count, file: file, line: line) }
+        @discardableResult public func youCouldOnlyGetThis() -> VerifyBuilder<ComplicatedServiceTypeMock, String> { VerifyBuilder(mock: mock, method: Verify(method: .p_youCouldOnlyGetThis_get), returning: (String).self, count: count, file: file, line: line) }
     }
 
     public func given(_ method: Given) {
@@ -3704,7 +3704,7 @@ open class ComposedServiceMock: ComposedService, Mock {
     public struct GivenBuilderFactory {
         fileprivate let mock: ComposedServiceMock
 
-        public func youCouldOnlyGetThis(getter defaultValue: String...) -> GivenBuilder<ComposedServiceMock, String> {
+        public func youCouldOnlyGetThis() -> GivenBuilder<ComposedServiceMock, String> {
             GivenBuilder(mock: mock, stubFactory: { m, products in
                 Given(method: .p_youCouldOnlyGetThis_get, products: products)
             })
@@ -3822,7 +3822,7 @@ open class ComposedServiceMock: ComposedService, Mock {
         @discardableResult public func methodWithClosures(success function: Parameter<((Scalar, Scalar) -> Scalar)?>) -> VerifyBuilder<ComposedServiceMock, (Int) -> Void> {
             VerifyBuilder(mock: mock, method: Verify(method: .m_methodWithClosures__success_function_2(`function`)), returning: ((Int) -> Void).self, count: count, file: file, line: line)
         }
-        public var youCouldOnlyGetThis: VerifyBuilder<ComposedServiceMock, String> { VerifyBuilder(mock: mock, method: Verify(method: .p_youCouldOnlyGetThis_get), returning: (String).self, count: count, file: file, line: line) }
+        @discardableResult public func youCouldOnlyGetThis() -> VerifyBuilder<ComposedServiceMock, String> { VerifyBuilder(mock: mock, method: Verify(method: .p_youCouldOnlyGetThis_get), returning: (String).self, count: count, file: file, line: line) }
     }
 
     public func given(_ method: Given) {
@@ -4011,7 +4011,7 @@ open class DateSortableMock: DateSortable, Mock {
     public struct GivenBuilderFactory {
         fileprivate let mock: DateSortableMock
 
-        public func date(getter defaultValue: Date...) -> GivenBuilder<DateSortableMock, Date> {
+        public func date() -> GivenBuilder<DateSortableMock, Date> {
             GivenBuilder(mock: mock, stubFactory: { m, products in
                 Given(method: .p_date_get, products: products)
             })
@@ -4030,7 +4030,7 @@ open class DateSortableMock: DateSortable, Mock {
         fileprivate let file: StaticString
         fileprivate let line: UInt
 
-        public var date: VerifyBuilder<DateSortableMock, Date> { VerifyBuilder(mock: mock, method: Verify(method: .p_date_get), returning: (Date).self, count: count, file: file, line: line) }
+        @discardableResult public func date() -> VerifyBuilder<DateSortableMock, Date> { VerifyBuilder(mock: mock, method: Verify(method: .p_date_get), returning: (Date).self, count: count, file: file, line: line) }
     }
 
     public func given(_ method: Given) {
@@ -5032,7 +5032,7 @@ open class FailsWithKeywordArgumentsMock: FailsWithKeywordArguments, Mock {
     public struct GivenBuilderFactory {
         fileprivate let mock: FailsWithKeywordArgumentsMock
 
-        public func `throw`(getter defaultValue: Error...) -> GivenBuilder<FailsWithKeywordArgumentsMock, Error> {
+        public func `throw`() -> GivenBuilder<FailsWithKeywordArgumentsMock, Error> {
             GivenBuilder(mock: mock, stubFactory: { m, products in
                 Given(method: .p_throw_get, products: products)
             })
@@ -5090,8 +5090,8 @@ open class FailsWithKeywordArgumentsMock: FailsWithKeywordArguments, Mock {
         @discardableResult public func `return`(do while: Parameter<String>) -> VerifyBuilder<FailsWithKeywordArgumentsMock, Bool> {
             VerifyBuilder(mock: mock, method: Verify(method: .m_return__do_while(`while`)), returning: (Bool).self, count: count, file: file, line: line)
         }
-        public var `throw`: VerifyBuilder<FailsWithKeywordArgumentsMock, Error> { VerifyBuilder(mock: mock, method: Verify(method: .p_throw_get), returning: (Error).self, count: count, file: file, line: line) }
-		public func `throw`(set newValue: Parameter<Error>) -> VerifyBuilder<FailsWithKeywordArgumentsMock, Void> { VerifyBuilder(mock: mock, method: Verify(method: .p_throw_set(newValue)), returning: Void.self, count: count, file: file, line: line) }
+        @discardableResult public func `throw`() -> VerifyBuilder<FailsWithKeywordArgumentsMock, Error> { VerifyBuilder(mock: mock, method: Verify(method: .p_throw_get), returning: (Error).self, count: count, file: file, line: line) }
+		@discardableResult public func `throw`(set newValue: Parameter<Error>) -> VerifyBuilder<FailsWithKeywordArgumentsMock, Void> { VerifyBuilder(mock: mock, method: Verify(method: .p_throw_set(newValue)), returning: Void.self, count: count, file: file, line: line) }
         @discardableResult 
 		public func `subscript`(_ return: Parameter<Int>) -> VerifyBuilder<FailsWithKeywordArgumentsMock, Bool> {
             VerifyBuilder(mock: mock, method: Verify(method: .subscript_get_return(`return`)), returning: (Bool).self, count: count, file: file, line: line)
@@ -8358,7 +8358,7 @@ open class ProtocolWithAssociatedTypeMock<T>: ProtocolWithAssociatedType, Mock w
     public struct GivenBuilderFactory {
         fileprivate let mock: ProtocolWithAssociatedTypeMock<T>
 
-        public func sequence(getter defaultValue: T...) -> GivenBuilder<ProtocolWithAssociatedTypeMock<T>, T> {
+        public func sequence() -> GivenBuilder<ProtocolWithAssociatedTypeMock<T>, T> {
             GivenBuilder(mock: mock, stubFactory: { m, products in
                 Given(method: .p_sequence_get, products: products)
             })
@@ -8390,7 +8390,7 @@ open class ProtocolWithAssociatedTypeMock<T>: ProtocolWithAssociatedType, Mock w
         @discardableResult public func methodWithType(t: Parameter<T>) -> VerifyBuilder<ProtocolWithAssociatedTypeMock<T>, Bool> {
             VerifyBuilder(mock: mock, method: Verify(method: .m_methodWithType__t_t(`t`)), returning: (Bool).self, count: count, file: file, line: line)
         }
-        public var sequence: VerifyBuilder<ProtocolWithAssociatedTypeMock<T>, T> { VerifyBuilder(mock: mock, method: Verify(method: .p_sequence_get), returning: (T).self, count: count, file: file, line: line) }
+        @discardableResult public func sequence() -> VerifyBuilder<ProtocolWithAssociatedTypeMock<T>, T> { VerifyBuilder(mock: mock, method: Verify(method: .p_sequence_get), returning: (T).self, count: count, file: file, line: line) }
     }
 
     public func given(_ method: Given) {
@@ -8579,7 +8579,7 @@ open class ProtocolWithAssociatedType2Mock<ValueType>: ProtocolWithAssociatedTyp
     public struct GivenBuilderFactory {
         fileprivate let mock: ProtocolWithAssociatedType2Mock<ValueType>
 
-        public func property(getter defaultValue: String...) -> GivenBuilder<ProtocolWithAssociatedType2Mock<ValueType>, String> {
+        public func property() -> GivenBuilder<ProtocolWithAssociatedType2Mock<ValueType>, String> {
             GivenBuilder(mock: mock, stubFactory: { m, products in
                 Given(method: .p_property_get, products: products)
             })
@@ -8598,7 +8598,7 @@ open class ProtocolWithAssociatedType2Mock<ValueType>: ProtocolWithAssociatedTyp
         fileprivate let file: StaticString
         fileprivate let line: UInt
 
-        public var property: VerifyBuilder<ProtocolWithAssociatedType2Mock<ValueType>, String> { VerifyBuilder(mock: mock, method: Verify(method: .p_property_get), returning: (String).self, count: count, file: file, line: line) }
+        @discardableResult public func property() -> VerifyBuilder<ProtocolWithAssociatedType2Mock<ValueType>, String> { VerifyBuilder(mock: mock, method: Verify(method: .p_property_get), returning: (String).self, count: count, file: file, line: line) }
     }
 
     public func given(_ method: Given) {
@@ -10816,7 +10816,7 @@ open class ProtocolWithGenericConstraintsMock<ContainedType>: ProtocolWithGeneri
     public struct GivenBuilderFactory {
         fileprivate let mock: ProtocolWithGenericConstraintsMock<ContainedType>
 
-        public func value(getter defaultValue: ContainedType...) -> GivenBuilder<ProtocolWithGenericConstraintsMock<ContainedType>, ContainedType> {
+        public func value() -> GivenBuilder<ProtocolWithGenericConstraintsMock<ContainedType>, ContainedType> {
             GivenBuilder(mock: mock, stubFactory: { m, products in
                 Given(method: .p_value_get, products: products)
             })
@@ -10848,7 +10848,7 @@ open class ProtocolWithGenericConstraintsMock<ContainedType>: ProtocolWithGeneri
         @discardableResult public func extractString() -> VerifyBuilder<ProtocolWithGenericConstraintsMock<ContainedType>, String?> {
             VerifyBuilder(mock: mock, method: Verify(method: .m_extractString), returning: (String?).self, count: count, file: file, line: line)
         }
-        public var value: VerifyBuilder<ProtocolWithGenericConstraintsMock<ContainedType>, ContainedType> { VerifyBuilder(mock: mock, method: Verify(method: .p_value_get), returning: (ContainedType).self, count: count, file: file, line: line) }
+        @discardableResult public func value() -> VerifyBuilder<ProtocolWithGenericConstraintsMock<ContainedType>, ContainedType> { VerifyBuilder(mock: mock, method: Verify(method: .p_value_get), returning: (ContainedType).self, count: count, file: file, line: line) }
     }
 
     public func given(_ method: Given) {
@@ -11582,12 +11582,12 @@ open class ProtocolWithInitializersMock: ProtocolWithInitializers, Mock {
     public struct GivenBuilderFactory {
         fileprivate let mock: ProtocolWithInitializersMock
 
-        public func param(getter defaultValue: Int...) -> GivenBuilder<ProtocolWithInitializersMock, Int> {
+        public func param() -> GivenBuilder<ProtocolWithInitializersMock, Int> {
             GivenBuilder(mock: mock, stubFactory: { m, products in
                 Given(method: .p_param_get, products: products)
             })
         }
-        public func other(getter defaultValue: String...) -> GivenBuilder<ProtocolWithInitializersMock, String> {
+        public func other() -> GivenBuilder<ProtocolWithInitializersMock, String> {
             GivenBuilder(mock: mock, stubFactory: { m, products in
                 Given(method: .p_other_get, products: products)
             })
@@ -11606,8 +11606,8 @@ open class ProtocolWithInitializersMock: ProtocolWithInitializers, Mock {
         fileprivate let file: StaticString
         fileprivate let line: UInt
 
-        public var param: VerifyBuilder<ProtocolWithInitializersMock, Int> { VerifyBuilder(mock: mock, method: Verify(method: .p_param_get), returning: (Int).self, count: count, file: file, line: line) }
-        public var other: VerifyBuilder<ProtocolWithInitializersMock, String> { VerifyBuilder(mock: mock, method: Verify(method: .p_other_get), returning: (String).self, count: count, file: file, line: line) }
+        @discardableResult public func param() -> VerifyBuilder<ProtocolWithInitializersMock, Int> { VerifyBuilder(mock: mock, method: Verify(method: .p_param_get), returning: (Int).self, count: count, file: file, line: line) }
+        @discardableResult public func other() -> VerifyBuilder<ProtocolWithInitializersMock, String> { VerifyBuilder(mock: mock, method: Verify(method: .p_other_get), returning: (String).self, count: count, file: file, line: line) }
     }
 
     public func given(_ method: Given) {
@@ -12810,17 +12810,17 @@ open class ProtocolWithPropertiesMock: ProtocolWithProperties, Mock, StaticMock 
     public struct GivenBuilderFactory {
         fileprivate let mock: ProtocolWithPropertiesMock
 
-        public func name(getter defaultValue: String...) -> GivenBuilder<ProtocolWithPropertiesMock, String> {
+        public func name() -> GivenBuilder<ProtocolWithPropertiesMock, String> {
             GivenBuilder(mock: mock, stubFactory: { m, products in
                 Given(method: .p_name_get, products: products)
             })
         }
-        public func email(getter defaultValue: String?...) -> GivenBuilder<ProtocolWithPropertiesMock, String?> {
+        public func email() -> GivenBuilder<ProtocolWithPropertiesMock, String?> {
             GivenBuilder(mock: mock, stubFactory: { m, products in
                 Given(method: .p_email_get, products: products)
             })
         }
-        public func internalProperty(getter defaultValue: InternalType...) -> GivenBuilder<ProtocolWithPropertiesMock, InternalType> {
+        public func internalProperty() -> GivenBuilder<ProtocolWithPropertiesMock, InternalType> {
             GivenBuilder(mock: mock, stubFactory: { m, products in
                 Given(method: .p_internalProperty_get, products: products)
             })
@@ -12855,12 +12855,12 @@ open class ProtocolWithPropertiesMock: ProtocolWithProperties, Mock, StaticMock 
         @discardableResult public func email(_ newValue: Parameter<String?>) -> VerifyBuilder<ProtocolWithPropertiesMock, Void> {
             VerifyBuilder(mock: mock, method: Verify(method: .m_email__newValue(`newValue`)), returning: (Void).self, count: count, file: file, line: line)
         }
-        public var name: VerifyBuilder<ProtocolWithPropertiesMock, String> { VerifyBuilder(mock: mock, method: Verify(method: .p_name_get), returning: (String).self, count: count, file: file, line: line) }
-		public func name(set newValue: Parameter<String>) -> VerifyBuilder<ProtocolWithPropertiesMock, Void> { VerifyBuilder(mock: mock, method: Verify(method: .p_name_set(newValue)), returning: Void.self, count: count, file: file, line: line) }
-        public var email: VerifyBuilder<ProtocolWithPropertiesMock, String?> { VerifyBuilder(mock: mock, method: Verify(method: .p_email_get), returning: (String?).self, count: count, file: file, line: line) }
-		public func email(set newValue: Parameter<String?>) -> VerifyBuilder<ProtocolWithPropertiesMock, Void> { VerifyBuilder(mock: mock, method: Verify(method: .p_email_set(newValue)), returning: Void.self, count: count, file: file, line: line) }
-        public var internalProperty: VerifyBuilder<ProtocolWithPropertiesMock, InternalType> { VerifyBuilder(mock: mock, method: Verify(method: .p_internalProperty_get), returning: (InternalType).self, count: count, file: file, line: line) }
-		public func internalProperty(set newValue: Parameter<InternalType>) -> VerifyBuilder<ProtocolWithPropertiesMock, Void> { VerifyBuilder(mock: mock, method: Verify(method: .p_internalProperty_set(newValue)), returning: Void.self, count: count, file: file, line: line) }
+        @discardableResult public func name() -> VerifyBuilder<ProtocolWithPropertiesMock, String> { VerifyBuilder(mock: mock, method: Verify(method: .p_name_get), returning: (String).self, count: count, file: file, line: line) }
+		@discardableResult public func name(set newValue: Parameter<String>) -> VerifyBuilder<ProtocolWithPropertiesMock, Void> { VerifyBuilder(mock: mock, method: Verify(method: .p_name_set(newValue)), returning: Void.self, count: count, file: file, line: line) }
+        @discardableResult public func email() -> VerifyBuilder<ProtocolWithPropertiesMock, String?> { VerifyBuilder(mock: mock, method: Verify(method: .p_email_get), returning: (String?).self, count: count, file: file, line: line) }
+		@discardableResult public func email(set newValue: Parameter<String?>) -> VerifyBuilder<ProtocolWithPropertiesMock, Void> { VerifyBuilder(mock: mock, method: Verify(method: .p_email_set(newValue)), returning: Void.self, count: count, file: file, line: line) }
+        @discardableResult public func internalProperty() -> VerifyBuilder<ProtocolWithPropertiesMock, InternalType> { VerifyBuilder(mock: mock, method: Verify(method: .p_internalProperty_get), returning: (InternalType).self, count: count, file: file, line: line) }
+		@discardableResult public func internalProperty(set newValue: Parameter<InternalType>) -> VerifyBuilder<ProtocolWithPropertiesMock, Void> { VerifyBuilder(mock: mock, method: Verify(method: .p_internalProperty_set(newValue)), returning: Void.self, count: count, file: file, line: line) }
     }
 
     public func given(_ method: Given) {
@@ -13873,7 +13873,7 @@ open class ProtocolWithSubscriptsMock: ProtocolWithSubscripts, Mock {
     public struct GivenBuilderFactory {
         fileprivate let mock: ProtocolWithSubscriptsMock
 
-        public func something(getter defaultValue: Any...) -> GivenBuilder<ProtocolWithSubscriptsMock, Any> {
+        public func something() -> GivenBuilder<ProtocolWithSubscriptsMock, Any> {
             GivenBuilder(mock: mock, stubFactory: { m, products in
                 Given(method: .p_something_get, products: products)
             })
@@ -13960,8 +13960,8 @@ open class ProtocolWithSubscriptsMock: ProtocolWithSubscripts, Mock {
         @discardableResult public func aaa(_ value: Parameter<Int>) -> VerifyBuilder<ProtocolWithSubscriptsMock, Bool> {
             VerifyBuilder(mock: mock, method: Verify(method: .m_aaa__value(`value`)), returning: (Bool).self, count: count, file: file, line: line)
         }
-        public var something: VerifyBuilder<ProtocolWithSubscriptsMock, Any> { VerifyBuilder(mock: mock, method: Verify(method: .p_something_get), returning: (Any).self, count: count, file: file, line: line) }
-		public func something(set newValue: Parameter<Any>) -> VerifyBuilder<ProtocolWithSubscriptsMock, Void> { VerifyBuilder(mock: mock, method: Verify(method: .p_something_set(newValue)), returning: Void.self, count: count, file: file, line: line) }
+        @discardableResult public func something() -> VerifyBuilder<ProtocolWithSubscriptsMock, Any> { VerifyBuilder(mock: mock, method: Verify(method: .p_something_get), returning: (Any).self, count: count, file: file, line: line) }
+		@discardableResult public func something(set newValue: Parameter<Any>) -> VerifyBuilder<ProtocolWithSubscriptsMock, Void> { VerifyBuilder(mock: mock, method: Verify(method: .p_something_set(newValue)), returning: Void.self, count: count, file: file, line: line) }
         @discardableResult 
 		public func `subscript`(_ index: Parameter<Int>) -> VerifyBuilder<ProtocolWithSubscriptsMock, String> {
             VerifyBuilder(mock: mock, method: Verify(method: .subscript_get_index_1(`index`)), returning: (String).self, count: count, file: file, line: line)
@@ -14798,7 +14798,7 @@ open class ProtocolWithWhereAfterDefinitionMock<T>: ProtocolWithWhereAfterDefini
     public struct GivenBuilderFactory {
         fileprivate let mock: ProtocolWithWhereAfterDefinitionMock<T>
 
-        public func sequence(getter defaultValue: T...) -> GivenBuilder<ProtocolWithWhereAfterDefinitionMock<T>, T> {
+        public func sequence() -> GivenBuilder<ProtocolWithWhereAfterDefinitionMock<T>, T> {
             GivenBuilder(mock: mock, stubFactory: { m, products in
                 Given(method: .p_sequence_get, products: products)
             })
@@ -14830,7 +14830,7 @@ open class ProtocolWithWhereAfterDefinitionMock<T>: ProtocolWithWhereAfterDefini
         @discardableResult public func methodWithType(t: Parameter<T>) -> VerifyBuilder<ProtocolWithWhereAfterDefinitionMock<T>, Bool> {
             VerifyBuilder(mock: mock, method: Verify(method: .m_methodWithType__t_t(`t`)), returning: (Bool).self, count: count, file: file, line: line)
         }
-        public var sequence: VerifyBuilder<ProtocolWithWhereAfterDefinitionMock<T>, T> { VerifyBuilder(mock: mock, method: Verify(method: .p_sequence_get), returning: (T).self, count: count, file: file, line: line) }
+        @discardableResult public func sequence() -> VerifyBuilder<ProtocolWithWhereAfterDefinitionMock<T>, T> { VerifyBuilder(mock: mock, method: Verify(method: .p_sequence_get), returning: (T).self, count: count, file: file, line: line) }
     }
 
     public func given(_ method: Given) {
@@ -16470,7 +16470,7 @@ open class ShouldAllowNoStubDefinedMock: ShouldAllowNoStubDefined, Mock, StaticM
     public struct GivenBuilderFactory {
         fileprivate let mock: ShouldAllowNoStubDefinedMock
 
-        public func property(getter defaultValue: Int?...) -> GivenBuilder<ShouldAllowNoStubDefinedMock, Int?> {
+        public func property() -> GivenBuilder<ShouldAllowNoStubDefinedMock, Int?> {
             GivenBuilder(mock: mock, stubFactory: { m, products in
                 Given(method: .p_property_get, products: products)
             })
@@ -16541,7 +16541,7 @@ open class ShouldAllowNoStubDefinedMock: ShouldAllowNoStubDefined, Mock, StaticM
         @discardableResult public func optionalThrowingMethod(_ key: Parameter<String>) -> VerifyBuilder<ShouldAllowNoStubDefinedMock, Int?> {
             VerifyBuilder(mock: mock, method: Verify(method: .m_optionalThrowingMethod__key(`key`)), returning: (Int?).self, count: count, file: file, line: line)
         }
-        public var property: VerifyBuilder<ShouldAllowNoStubDefinedMock, Int?> { VerifyBuilder(mock: mock, method: Verify(method: .p_property_get), returning: (Int?).self, count: count, file: file, line: line) }
+        @discardableResult public func property() -> VerifyBuilder<ShouldAllowNoStubDefinedMock, Int?> { VerifyBuilder(mock: mock, method: Verify(method: .p_property_get), returning: (Int?).self, count: count, file: file, line: line) }
         @discardableResult 
 		public func `subscript`(_ x: Parameter<Int>) -> VerifyBuilder<ShouldAllowNoStubDefinedMock, Int?> {
             VerifyBuilder(mock: mock, method: Verify(method: .subscript_get_x(`x`)), returning: (Int?).self, count: count, file: file, line: line)
@@ -16993,27 +16993,27 @@ open class SimpleProtocolThatInheritsOtherProtocolsMock: SimpleProtocolThatInher
     public struct GivenBuilderFactory {
         fileprivate let mock: SimpleProtocolThatInheritsOtherProtocolsMock
 
-        public func property(getter defaultValue: String...) -> GivenBuilder<SimpleProtocolThatInheritsOtherProtocolsMock, String> {
+        public func property() -> GivenBuilder<SimpleProtocolThatInheritsOtherProtocolsMock, String> {
             GivenBuilder(mock: mock, stubFactory: { m, products in
                 Given(method: .p_property_get, products: products)
             })
         }
-        public func weakProperty(getter defaultValue: AnyObject?...) -> GivenBuilder<SimpleProtocolThatInheritsOtherProtocolsMock, AnyObject?> {
+        public func weakProperty() -> GivenBuilder<SimpleProtocolThatInheritsOtherProtocolsMock, AnyObject?> {
             GivenBuilder(mock: mock, stubFactory: { m, products in
                 Given(method: .p_weakProperty_get, products: products)
             })
         }
-        public func propertyGetOnly(getter defaultValue: String...) -> GivenBuilder<SimpleProtocolThatInheritsOtherProtocolsMock, String> {
+        public func propertyGetOnly() -> GivenBuilder<SimpleProtocolThatInheritsOtherProtocolsMock, String> {
             GivenBuilder(mock: mock, stubFactory: { m, products in
                 Given(method: .p_propertyGetOnly_get, products: products)
             })
         }
-        public func propertyOptional(getter defaultValue: Int?...) -> GivenBuilder<SimpleProtocolThatInheritsOtherProtocolsMock, Int?> {
+        public func propertyOptional() -> GivenBuilder<SimpleProtocolThatInheritsOtherProtocolsMock, Int?> {
             GivenBuilder(mock: mock, stubFactory: { m, products in
                 Given(method: .p_propertyOptional_get, products: products)
             })
         }
-        public func propertyImplicit(getter defaultValue: Int?...) -> GivenBuilder<SimpleProtocolThatInheritsOtherProtocolsMock, Int?> {
+        public func propertyImplicit() -> GivenBuilder<SimpleProtocolThatInheritsOtherProtocolsMock, Int?> {
             GivenBuilder(mock: mock, stubFactory: { m, products in
                 Given(method: .p_propertyImplicit_get, products: products)
             })
@@ -17079,15 +17079,15 @@ open class SimpleProtocolThatInheritsOtherProtocolsMock: SimpleProtocolThatInher
         @discardableResult public func simpleMehtodThatReturns(optionalParam: Parameter<String?>) -> VerifyBuilder<SimpleProtocolThatInheritsOtherProtocolsMock, String?> {
             VerifyBuilder(mock: mock, method: Verify(method: .m_simpleMehtodThatReturns__optionalParam_optionalParam(`optionalParam`)), returning: (String?).self, count: count, file: file, line: line)
         }
-        public var property: VerifyBuilder<SimpleProtocolThatInheritsOtherProtocolsMock, String> { VerifyBuilder(mock: mock, method: Verify(method: .p_property_get), returning: (String).self, count: count, file: file, line: line) }
-		public func property(set newValue: Parameter<String>) -> VerifyBuilder<SimpleProtocolThatInheritsOtherProtocolsMock, Void> { VerifyBuilder(mock: mock, method: Verify(method: .p_property_set(newValue)), returning: Void.self, count: count, file: file, line: line) }
-        public var weakProperty: VerifyBuilder<SimpleProtocolThatInheritsOtherProtocolsMock, AnyObject?> { VerifyBuilder(mock: mock, method: Verify(method: .p_weakProperty_get), returning: (AnyObject?).self, count: count, file: file, line: line) }
-		public func weakProperty(set newValue: Parameter<AnyObject?>) -> VerifyBuilder<SimpleProtocolThatInheritsOtherProtocolsMock, Void> { VerifyBuilder(mock: mock, method: Verify(method: .p_weakProperty_set(newValue)), returning: Void.self, count: count, file: file, line: line) }
-        public var propertyGetOnly: VerifyBuilder<SimpleProtocolThatInheritsOtherProtocolsMock, String> { VerifyBuilder(mock: mock, method: Verify(method: .p_propertyGetOnly_get), returning: (String).self, count: count, file: file, line: line) }
-        public var propertyOptional: VerifyBuilder<SimpleProtocolThatInheritsOtherProtocolsMock, Int?> { VerifyBuilder(mock: mock, method: Verify(method: .p_propertyOptional_get), returning: (Int?).self, count: count, file: file, line: line) }
-		public func propertyOptional(set newValue: Parameter<Int?>) -> VerifyBuilder<SimpleProtocolThatInheritsOtherProtocolsMock, Void> { VerifyBuilder(mock: mock, method: Verify(method: .p_propertyOptional_set(newValue)), returning: Void.self, count: count, file: file, line: line) }
-        public var propertyImplicit: VerifyBuilder<SimpleProtocolThatInheritsOtherProtocolsMock, Int?> { VerifyBuilder(mock: mock, method: Verify(method: .p_propertyImplicit_get), returning: (Int?).self, count: count, file: file, line: line) }
-		public func propertyImplicit(set newValue: Parameter<Int?>) -> VerifyBuilder<SimpleProtocolThatInheritsOtherProtocolsMock, Void> { VerifyBuilder(mock: mock, method: Verify(method: .p_propertyImplicit_set(newValue)), returning: Void.self, count: count, file: file, line: line) }
+        @discardableResult public func property() -> VerifyBuilder<SimpleProtocolThatInheritsOtherProtocolsMock, String> { VerifyBuilder(mock: mock, method: Verify(method: .p_property_get), returning: (String).self, count: count, file: file, line: line) }
+		@discardableResult public func property(set newValue: Parameter<String>) -> VerifyBuilder<SimpleProtocolThatInheritsOtherProtocolsMock, Void> { VerifyBuilder(mock: mock, method: Verify(method: .p_property_set(newValue)), returning: Void.self, count: count, file: file, line: line) }
+        @discardableResult public func weakProperty() -> VerifyBuilder<SimpleProtocolThatInheritsOtherProtocolsMock, AnyObject?> { VerifyBuilder(mock: mock, method: Verify(method: .p_weakProperty_get), returning: (AnyObject?).self, count: count, file: file, line: line) }
+		@discardableResult public func weakProperty(set newValue: Parameter<AnyObject?>) -> VerifyBuilder<SimpleProtocolThatInheritsOtherProtocolsMock, Void> { VerifyBuilder(mock: mock, method: Verify(method: .p_weakProperty_set(newValue)), returning: Void.self, count: count, file: file, line: line) }
+        @discardableResult public func propertyGetOnly() -> VerifyBuilder<SimpleProtocolThatInheritsOtherProtocolsMock, String> { VerifyBuilder(mock: mock, method: Verify(method: .p_propertyGetOnly_get), returning: (String).self, count: count, file: file, line: line) }
+        @discardableResult public func propertyOptional() -> VerifyBuilder<SimpleProtocolThatInheritsOtherProtocolsMock, Int?> { VerifyBuilder(mock: mock, method: Verify(method: .p_propertyOptional_get), returning: (Int?).self, count: count, file: file, line: line) }
+		@discardableResult public func propertyOptional(set newValue: Parameter<Int?>) -> VerifyBuilder<SimpleProtocolThatInheritsOtherProtocolsMock, Void> { VerifyBuilder(mock: mock, method: Verify(method: .p_propertyOptional_set(newValue)), returning: Void.self, count: count, file: file, line: line) }
+        @discardableResult public func propertyImplicit() -> VerifyBuilder<SimpleProtocolThatInheritsOtherProtocolsMock, Int?> { VerifyBuilder(mock: mock, method: Verify(method: .p_propertyImplicit_get), returning: (Int?).self, count: count, file: file, line: line) }
+		@discardableResult public func propertyImplicit(set newValue: Parameter<Int?>) -> VerifyBuilder<SimpleProtocolThatInheritsOtherProtocolsMock, Void> { VerifyBuilder(mock: mock, method: Verify(method: .p_propertyImplicit_set(newValue)), returning: Void.self, count: count, file: file, line: line) }
     }
 
     public func given(_ method: Given) {
@@ -17694,7 +17694,7 @@ open class SimpleProtocolWithBothMethodsAndPropertiesMock: SimpleProtocolWithBot
     public struct GivenBuilderFactory {
         fileprivate let mock: SimpleProtocolWithBothMethodsAndPropertiesMock
 
-        public func property(getter defaultValue: String...) -> GivenBuilder<SimpleProtocolWithBothMethodsAndPropertiesMock, String> {
+        public func property() -> GivenBuilder<SimpleProtocolWithBothMethodsAndPropertiesMock, String> {
             GivenBuilder(mock: mock, stubFactory: { m, products in
                 Given(method: .p_property_get, products: products)
             })
@@ -17726,7 +17726,7 @@ open class SimpleProtocolWithBothMethodsAndPropertiesMock: SimpleProtocolWithBot
         @discardableResult public func simpleMethod() -> VerifyBuilder<SimpleProtocolWithBothMethodsAndPropertiesMock, String> {
             VerifyBuilder(mock: mock, method: Verify(method: .m_simpleMethod), returning: (String).self, count: count, file: file, line: line)
         }
-        public var property: VerifyBuilder<SimpleProtocolWithBothMethodsAndPropertiesMock, String> { VerifyBuilder(mock: mock, method: Verify(method: .p_property_get), returning: (String).self, count: count, file: file, line: line) }
+        @discardableResult public func property() -> VerifyBuilder<SimpleProtocolWithBothMethodsAndPropertiesMock, String> { VerifyBuilder(mock: mock, method: Verify(method: .p_property_get), returning: (String).self, count: count, file: file, line: line) }
     }
 
     public func given(_ method: Given) {
@@ -18348,27 +18348,27 @@ open class SimpleProtocolWithPropertiesMock: SimpleProtocolWithProperties, Mock 
     public struct GivenBuilderFactory {
         fileprivate let mock: SimpleProtocolWithPropertiesMock
 
-        public func property(getter defaultValue: String...) -> GivenBuilder<SimpleProtocolWithPropertiesMock, String> {
+        public func property() -> GivenBuilder<SimpleProtocolWithPropertiesMock, String> {
             GivenBuilder(mock: mock, stubFactory: { m, products in
                 Given(method: .p_property_get, products: products)
             })
         }
-        public func weakProperty(getter defaultValue: AnyObject?...) -> GivenBuilder<SimpleProtocolWithPropertiesMock, AnyObject?> {
+        public func weakProperty() -> GivenBuilder<SimpleProtocolWithPropertiesMock, AnyObject?> {
             GivenBuilder(mock: mock, stubFactory: { m, products in
                 Given(method: .p_weakProperty_get, products: products)
             })
         }
-        public func propertyGetOnly(getter defaultValue: String...) -> GivenBuilder<SimpleProtocolWithPropertiesMock, String> {
+        public func propertyGetOnly() -> GivenBuilder<SimpleProtocolWithPropertiesMock, String> {
             GivenBuilder(mock: mock, stubFactory: { m, products in
                 Given(method: .p_propertyGetOnly_get, products: products)
             })
         }
-        public func propertyOptional(getter defaultValue: Int?...) -> GivenBuilder<SimpleProtocolWithPropertiesMock, Int?> {
+        public func propertyOptional() -> GivenBuilder<SimpleProtocolWithPropertiesMock, Int?> {
             GivenBuilder(mock: mock, stubFactory: { m, products in
                 Given(method: .p_propertyOptional_get, products: products)
             })
         }
-        public func propertyImplicit(getter defaultValue: Int?...) -> GivenBuilder<SimpleProtocolWithPropertiesMock, Int?> {
+        public func propertyImplicit() -> GivenBuilder<SimpleProtocolWithPropertiesMock, Int?> {
             GivenBuilder(mock: mock, stubFactory: { m, products in
                 Given(method: .p_propertyImplicit_get, products: products)
             })
@@ -18387,15 +18387,15 @@ open class SimpleProtocolWithPropertiesMock: SimpleProtocolWithProperties, Mock 
         fileprivate let file: StaticString
         fileprivate let line: UInt
 
-        public var property: VerifyBuilder<SimpleProtocolWithPropertiesMock, String> { VerifyBuilder(mock: mock, method: Verify(method: .p_property_get), returning: (String).self, count: count, file: file, line: line) }
-		public func property(set newValue: Parameter<String>) -> VerifyBuilder<SimpleProtocolWithPropertiesMock, Void> { VerifyBuilder(mock: mock, method: Verify(method: .p_property_set(newValue)), returning: Void.self, count: count, file: file, line: line) }
-        public var weakProperty: VerifyBuilder<SimpleProtocolWithPropertiesMock, AnyObject?> { VerifyBuilder(mock: mock, method: Verify(method: .p_weakProperty_get), returning: (AnyObject?).self, count: count, file: file, line: line) }
-		public func weakProperty(set newValue: Parameter<AnyObject?>) -> VerifyBuilder<SimpleProtocolWithPropertiesMock, Void> { VerifyBuilder(mock: mock, method: Verify(method: .p_weakProperty_set(newValue)), returning: Void.self, count: count, file: file, line: line) }
-        public var propertyGetOnly: VerifyBuilder<SimpleProtocolWithPropertiesMock, String> { VerifyBuilder(mock: mock, method: Verify(method: .p_propertyGetOnly_get), returning: (String).self, count: count, file: file, line: line) }
-        public var propertyOptional: VerifyBuilder<SimpleProtocolWithPropertiesMock, Int?> { VerifyBuilder(mock: mock, method: Verify(method: .p_propertyOptional_get), returning: (Int?).self, count: count, file: file, line: line) }
-		public func propertyOptional(set newValue: Parameter<Int?>) -> VerifyBuilder<SimpleProtocolWithPropertiesMock, Void> { VerifyBuilder(mock: mock, method: Verify(method: .p_propertyOptional_set(newValue)), returning: Void.self, count: count, file: file, line: line) }
-        public var propertyImplicit: VerifyBuilder<SimpleProtocolWithPropertiesMock, Int?> { VerifyBuilder(mock: mock, method: Verify(method: .p_propertyImplicit_get), returning: (Int?).self, count: count, file: file, line: line) }
-		public func propertyImplicit(set newValue: Parameter<Int?>) -> VerifyBuilder<SimpleProtocolWithPropertiesMock, Void> { VerifyBuilder(mock: mock, method: Verify(method: .p_propertyImplicit_set(newValue)), returning: Void.self, count: count, file: file, line: line) }
+        @discardableResult public func property() -> VerifyBuilder<SimpleProtocolWithPropertiesMock, String> { VerifyBuilder(mock: mock, method: Verify(method: .p_property_get), returning: (String).self, count: count, file: file, line: line) }
+		@discardableResult public func property(set newValue: Parameter<String>) -> VerifyBuilder<SimpleProtocolWithPropertiesMock, Void> { VerifyBuilder(mock: mock, method: Verify(method: .p_property_set(newValue)), returning: Void.self, count: count, file: file, line: line) }
+        @discardableResult public func weakProperty() -> VerifyBuilder<SimpleProtocolWithPropertiesMock, AnyObject?> { VerifyBuilder(mock: mock, method: Verify(method: .p_weakProperty_get), returning: (AnyObject?).self, count: count, file: file, line: line) }
+		@discardableResult public func weakProperty(set newValue: Parameter<AnyObject?>) -> VerifyBuilder<SimpleProtocolWithPropertiesMock, Void> { VerifyBuilder(mock: mock, method: Verify(method: .p_weakProperty_set(newValue)), returning: Void.self, count: count, file: file, line: line) }
+        @discardableResult public func propertyGetOnly() -> VerifyBuilder<SimpleProtocolWithPropertiesMock, String> { VerifyBuilder(mock: mock, method: Verify(method: .p_propertyGetOnly_get), returning: (String).self, count: count, file: file, line: line) }
+        @discardableResult public func propertyOptional() -> VerifyBuilder<SimpleProtocolWithPropertiesMock, Int?> { VerifyBuilder(mock: mock, method: Verify(method: .p_propertyOptional_get), returning: (Int?).self, count: count, file: file, line: line) }
+		@discardableResult public func propertyOptional(set newValue: Parameter<Int?>) -> VerifyBuilder<SimpleProtocolWithPropertiesMock, Void> { VerifyBuilder(mock: mock, method: Verify(method: .p_propertyOptional_set(newValue)), returning: Void.self, count: count, file: file, line: line) }
+        @discardableResult public func propertyImplicit() -> VerifyBuilder<SimpleProtocolWithPropertiesMock, Int?> { VerifyBuilder(mock: mock, method: Verify(method: .p_propertyImplicit_get), returning: (Int?).self, count: count, file: file, line: line) }
+		@discardableResult public func propertyImplicit(set newValue: Parameter<Int?>) -> VerifyBuilder<SimpleProtocolWithPropertiesMock, Void> { VerifyBuilder(mock: mock, method: Verify(method: .p_propertyImplicit_set(newValue)), returning: Void.self, count: count, file: file, line: line) }
     }
 
     public func given(_ method: Given) {
@@ -19737,7 +19737,7 @@ open class ThrowingVarProtocolMock: ThrowingVarProtocol, Mock {
         fileprivate let mock: ThrowingVarProtocolMock
 
         @available(iOS 15.0.0, macOS 12.0.0, tvOS 15.0.0, *)
-		public func testVariableThatThrow(getter defaultValue: Bool...) -> GivenBuilder<ThrowingVarProtocolMock, Bool> {
+		public func testVariableThatThrow() -> GivenBuilder<ThrowingVarProtocolMock, Bool> {
             GivenBuilder(mock: mock, stubFactory: { m, products in
                 Given(method: .p_testVariableThatThrow_get, products: products)
             })
@@ -19756,7 +19756,8 @@ open class ThrowingVarProtocolMock: ThrowingVarProtocol, Mock {
         fileprivate let file: StaticString
         fileprivate let line: UInt
 
-        public var testVariableThatThrow: VerifyBuilder<ThrowingVarProtocolMock, Bool> { VerifyBuilder(mock: mock, method: Verify(method: .p_testVariableThatThrow_get), returning: (Bool).self, count: count, file: file, line: line) }
+        @discardableResult @available(iOS 15.0.0, macOS 12.0.0, tvOS 15.0.0, *)
+		public func testVariableThatThrow() -> VerifyBuilder<ThrowingVarProtocolMock, Bool> { VerifyBuilder(mock: mock, method: Verify(method: .p_testVariableThatThrow_get), returning: (Bool).self, count: count, file: file, line: line) }
     }
 
     public func given(_ method: Given) {

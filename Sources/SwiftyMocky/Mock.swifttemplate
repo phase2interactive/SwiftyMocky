@@ -1617,10 +1617,20 @@ class VariableWrapper {
         // guard variable.type?.accessLevel != "internal" else { return "" }
         return "public "
     }
+
     var attributes: String {
         let value = Helpers.extractAttributes(from: self.variable.attributes)
         return value.isEmpty ? "\(accessModifier)" : "\(value)\n\t\t\(accessModifier)"
     }
+
+    var discardableAttribute: String {
+        var attributes = self.attributes
+        if !attributes.contains("@discardableResult") {
+            attributes = "@discardableResult " + attributes
+        }
+        return attributes
+    }
+
     var noStubDefinedMessage: String { return "\(scope) - stub value for \(variable.name) was not defined" }
 
     var getter: String {
@@ -1689,11 +1699,11 @@ class VariableWrapper {
 
     func propertyVerifyGetFactory() -> String {
         let strippedType = TypeWrapper(variable.typeName, current: current).stripped
-        return "public var \(variable.name): VerifyBuilder<\(current.selfType), \(strippedType)> { VerifyBuilder(mock: mock, method: Verify(method: .\(propertyCaseGetName)), returning: (\(strippedType)).self, count: count, file: file, line: line) }"
+        return "\(discardableAttribute)func \(variable.name)() -> VerifyBuilder<\(current.selfType), \(strippedType)> { VerifyBuilder(mock: mock, method: Verify(method: .\(propertyCaseGetName)), returning: (\(strippedType)).self, count: count, file: file, line: line) }"
     }
 
     func propertyVerifySetFactory() -> String {
-        return "public func \(variable.name)(set newValue: \(nestedType)) -> VerifyBuilder<\(current.selfType), Void> { VerifyBuilder(mock: mock, method: Verify(method: .\(propertyCaseSetName)(newValue)), returning: Void.self, count: count, file: file, line: line) }"
+        return "\(discardableAttribute)func \(variable.name)(set newValue: \(nestedType)) -> VerifyBuilder<\(current.selfType), Void> { VerifyBuilder(mock: mock, method: Verify(method: .\(propertyCaseSetName)(newValue)), returning: Void.self, count: count, file: file, line: line) }"
     }
 
     var propertyCaseGetName: String { return "p_\(variable.name)_get".replacingOccurrences(of: "`", with: "") }
@@ -1733,7 +1743,7 @@ class VariableWrapper {
 
     func givenFactoryName(prefix: String = "") -> String {
         let typeName = TypeWrapper(variable.typeName, current: current).stripped
-        return "\(attributes)func \(variable.name)(getter defaultValue: \(typeName)...) -> GivenBuilder<\(current.selfType), \(typeName)>"
+        return "\(attributes)func \(variable.name)() -> GivenBuilder<\(current.selfType), \(typeName)>"
     }
 
     func givenFactoryBody(prefix: String = "") -> String {
